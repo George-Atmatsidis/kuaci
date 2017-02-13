@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.rubahapi.kuaci.pojo.Person;
+import com.rubahapi.kuaci.pojo.Product;
 
 import static com.rubahapi.kuaci.config.ServerPath.TABLE_REF_PERSON;
 
@@ -25,31 +25,37 @@ public class MainActivity extends AppCompatActivity {
 //
         DatabaseReference newRef = database.getReference(TABLE_REF_PERSON);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.person_recycler_view);
+
+        newRef.child(newRef.getKey()).setValue(new Product("Kunci","1212"));
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.product_recycler_view);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        final FirebaseRecyclerAdapter<Person, PersonViewHolder> adapter = new FirebaseRecyclerAdapter<Person, PersonViewHolder>(
-                Person.class,
-                R.layout.item_person,
-                PersonViewHolder.class,
+        final FirebaseRecyclerAdapter<Product, ProductViewHolder> adapter = new FirebaseRecyclerAdapter<Product, ProductViewHolder>(
+                Product.class,
+                R.layout.item_product,
+                ProductViewHolder.class,
                 newRef.getRef()) {
             @Override
-            protected void populateViewHolder(PersonViewHolder viewHolder, Person model, int position) {
-                viewHolder.textView.setText(model.getName());
+            protected void populateViewHolder(ProductViewHolder viewHolder, Product model, int position) {
+                viewHolder.nameTextView.setText(model.getName());
+                viewHolder.barcodeTextView.setText(model.getBarcode());
             }
         };
 
         recyclerView.setAdapter(adapter);
     }
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder{
+    public static class ProductViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textView;
+        TextView nameTextView;
+        TextView barcodeTextView;
 
-        public PersonViewHolder(View v) {
+        public ProductViewHolder(View v) {
             super(v);
-            textView = (TextView) v.findViewById(R.id.name_textView);
+            nameTextView = (TextView) v.findViewById(R.id.name_textView);
+            barcodeTextView = (TextView) v.findViewById(R.id.barcode_textView);
         }
     }
 }

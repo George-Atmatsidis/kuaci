@@ -22,11 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
 //
         DatabaseReference newRef = database.getReference(TABLE_REF_PERSON);
-//        newRef.child(newRef.push().getKey()).setValue(new Person("Junifar", "Bekasi"));
-//        newRef.child(newRef.push().getKey()).setValue(new Person("Hidayat", "Jakarta"));
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.person_recycler_view);
 
@@ -44,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         recyclerView.setAdapter(adapter);
-
-//        myRef.setValue("Hello, World!");
     }
 
     public static class PersonViewHolder extends RecyclerView.ViewHolder{

@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "343113515990",
+    "firebase_url": "https://kuaci-6d8d3.firebaseio.com",
+    "project_id": "kuaci-6d8d3",
+    "storage_bucket": "kuaci-6d8d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343113515990:android:1368fc06d7b1154c",
+        "android_client_info": {
+          "package_name": "com.rubahapi.kuaci"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343113515990-vmthh71r1cpe9m9lnsnpmo86brgci336.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rubahapi.kuaci",
+            "certificate_hash": "45F48B0450665CCEC8EBB064792571107F6F2275"
+          }
+        },
+        {
+          "client_id": "343113515990-t3s0u1hi7komgtgmih1s8pkf8f37vi8o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rubahapi.kuaci",
+            "certificate_hash": "A858F849C7AE893AFCE481BCACC1305F335AD8A9"
+          }
+        },
+        {
+          "client_id": "343113515990-275iq74scg7vkr1nfdsskkf0mre1ld0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq7kkAG3YvsIz7iCkJaItCnTEfDk9h04U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343113515990-275iq74scg7vkr1nfdsskkf0mre1ld0q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

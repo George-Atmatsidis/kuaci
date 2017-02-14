@@ -17,8 +17,8 @@
                 android:scaleType="fitXY"
                 android:padding="5dp"
                 android:src="@drawable/image_icon"
-                android:paddingRight="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -27,16 +27,14 @@
                 android:layout_toRightOf="@+id/product_image_view"
                 android:textSize="24sp"
                 android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"/>
+                android:paddingBottom="8dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/name_textView"
                 android:layout_toRightOf="@+id/product_image_view"
                 android:layout_below="@+id/barcode_textView"
-                android:textSize="15sp"
-                android:paddingLeft="8dp"/>
+                android:textSize="15sp"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

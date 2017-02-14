@@ -6,15 +6,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.rubahapi.kuaci.listener.OnProductClickListener;
 import com.rubahapi.kuaci.pojo.Product;
 
 import static com.rubahapi.kuaci.config.ServerPath.TABLE_REF_PERSON;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,16 @@ public class MainActivity extends AppCompatActivity {
                 ProductViewHolder.class,
                 newRef.getRef()) {
             @Override
-            protected void populateViewHolder(ProductViewHolder viewHolder, Product model, int position) {
+            protected void populateViewHolder(ProductViewHolder viewHolder, Product model, final int position) {
                 viewHolder.nameTextView.setText(model.getName());
                 viewHolder.barcodeTextView.setText(model.getBarcode());
+
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(MainActivity.this, "You Click on " + position, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         };
 
@@ -51,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
         TextView nameTextView;
         TextView barcodeTextView;
+        View mView;
 
         public ProductViewHolder(View v) {
             super(v);
+            mView = v;
             nameTextView = (TextView) v.findViewById(R.id.name_textView);
             barcodeTextView = (TextView) v.findViewById(R.id.barcode_textView);
         }

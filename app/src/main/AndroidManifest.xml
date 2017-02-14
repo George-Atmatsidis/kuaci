@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".DashboardActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -21,7 +21,11 @@
         <activity
             android:name=".ProductActivity"
             android:label="@string/title_activity_product"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CreateProductActivity"
+            android:label="Create Product"
+            android:parentActivityName=".ProductActivity"></activity>
     </application>
 
 </manifest>

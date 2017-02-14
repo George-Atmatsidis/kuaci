@@ -7,29 +7,36 @@
         android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="72dp">
             <ImageView
                 android:id="@+id/product_image_view"
-                android:layout_width="72dp"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:scaleType="fitXY"
                 android:padding="5dp"
-                android:src="@drawable/image_icon"/>
+                android:src="@drawable/image_icon"
+                android:paddingRight="16dp"
+                android:layout_marginTop="16dp"
+                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/barcode_textView"
                 android:layout_toRightOf="@+id/product_image_view"
-                android:textSize="32sp"/>
+                android:textSize="24sp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/name_textView"
                 android:layout_toRightOf="@+id/product_image_view"
                 android:layout_below="@+id/barcode_textView"
-                android:textSize="16sp"/>
+                android:textSize="15sp"
+                android:paddingLeft="8dp"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

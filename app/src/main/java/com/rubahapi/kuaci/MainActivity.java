@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference newRef = database.getReference(TABLE_REF_PERSON);
 
 
-        newRef.child(newRef.getKey()).setValue(new Product("Kunci","1212"));
+        newRef.child(newRef.push().getKey()).setValue(new Product("Kunci","1212"));
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.product_recycler_view);
 

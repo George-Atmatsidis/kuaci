@@ -27,8 +27,12 @@
             android:label="@string/title_activity_product"
             android:parentActivityName=".DashboardActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CreateProductActivity"
+        <activity
+            android:name=".CreateProductActivity"
             android:label="Create Product"
+            android:parentActivityName=".ProductActivity" />
+        <activity android:name=".DetailProduct"
+            android:label="Detail Product"
             android:parentActivityName=".ProductActivity"></activity>
     </application>
 

@@ -68,7 +68,10 @@ public class ProductActivity extends AppCompatActivity {
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(ProductActivity.this, "You Click on " + getRef(position).getKey(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ProductActivity.this, "You Click on " + getRef(position).getKey(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ProductActivity.this, DetailProduct.class);
+                        intent.putExtra("key",getRef(position).getKey());
+                        ProductActivity.this.startActivity(intent);
                     }
                 });
             }

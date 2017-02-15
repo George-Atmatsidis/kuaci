@@ -56,6 +56,11 @@ public class ProductActivity extends AppCompatActivity {
                 databaseReference.getRef()) {
 
             @Override
+            public DatabaseReference getRef(int position) {
+                return super.getRef(position);
+            }
+
+            @Override
             protected void populateViewHolder(ProductViewHolder viewHolder, final Product model, final int position) {
                 viewHolder.nameTextView.setText(model.getName());
                 viewHolder.barcodeTextView.setText(model.getBarcode());
@@ -63,7 +68,7 @@ public class ProductActivity extends AppCompatActivity {
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(ProductActivity.this, "You Click on " + model.getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductActivity.this, "You Click on " + getRef(position).getKey(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

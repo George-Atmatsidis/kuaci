@@ -5,7 +5,6 @@ package com.rubahapi.kuaci.pojo;
  */
 
 public class Product {
-    private int id;
     private String name;
     private String barcode;
 
@@ -15,14 +14,6 @@ public class Product {
     public Product(String name, String barcode) {
         this.name = name;
         this.barcode = barcode;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

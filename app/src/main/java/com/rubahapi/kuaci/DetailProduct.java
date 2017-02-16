@@ -1,12 +1,14 @@
 package com.rubahapi.kuaci;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +20,7 @@ import com.rubahapi.kuaci.pojo.Product;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.rubahapi.kuaci.R.id.action_delete;
 import static com.rubahapi.kuaci.config.ServerPath.TABLE_REF_PRODUCT;
 
 public class DetailProduct extends AppCompatActivity {
@@ -34,6 +37,25 @@ public class DetailProduct extends AppCompatActivity {
     Intent intent;
     Product product;
 
+    ProgressDialog progressDialog;
+
+    private void showProgressDialog(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Retreieve Data From Server");
+            progressDialog.setIndeterminate(true);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+
+        progressDialog.show();
+    }
+
+    private void hideProgressDialog(){
+        if (progressDialog != null && progressDialog.isShowing()){
+            progressDialog.hide();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,17 +67,22 @@ public class DetailProduct extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference(TABLE_REF_PRODUCT);
 
+        showProgressDialog();
+
         databaseReference.child(intent.getStringExtra("key")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 product = dataSnapshot.getValue(Product.class);
-                nameEdit.setText(product.getName());
-                barcodeEdit.setText(product.getBarcode());
+                if(null != product){
+                    nameEdit.setText(product.getName());
+                    barcodeEdit.setText(product.getBarcode());
+                }
+                hideProgressDialog();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                hideProgressDialog();
             }
         });
     }
@@ -69,17 +96,38 @@ public class DetailProduct extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_done) {
-            action_done_click();
-            return true;
+        switch (id){
+            case R.id.action_done:
+                action_done_click();
+                return true;
+            case action_delete:
+                action_delete_click();
+                return true;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void action_delete_click() {
+
+        new AlertDialog.Builder(this).setTitle("Confirmation")
+                .setMessage("Do you want delete this record ?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        databaseReference.child(intent.getStringExtra("key")).removeValue();
+                        finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no,null).show();
+    }
+
     private void action_done_click() {
-        Toast.makeText(this, product.getName(), Toast.LENGTH_SHORT).show();
-//        TODO: Update Still Wrong
-        databaseReference.child(intent.getStringExtra("key")).setValue(new Product(product.getName(), product.getBarcode()));
+        product.setName(nameEdit.getText().toString());
+        product.setBarcode(barcodeEdit.getText().toString());
+        databaseReference.child(intent.getStringExtra("key")).setValue(product);
         finish();
     }
 }

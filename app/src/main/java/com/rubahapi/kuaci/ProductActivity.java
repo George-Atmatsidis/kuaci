@@ -9,14 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rubahapi.kuaci.pojo.Product;
 
-import static com.rubahapi.kuaci.config.ServerPath.TABLE_REF_PERSON;
+import static com.rubahapi.kuaci.config.ServerPath.TABLE_REF_PRODUCT;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -44,7 +43,7 @@ public class ProductActivity extends AppCompatActivity {
         });
 
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference(TABLE_REF_PERSON);
+        databaseReference = database.getReference(TABLE_REF_PRODUCT);
 
         productRecyclerView = (RecyclerView) findViewById(R.id.product_recycler_view);
         productRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

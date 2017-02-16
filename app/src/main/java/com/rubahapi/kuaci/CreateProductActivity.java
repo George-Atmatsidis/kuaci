@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.rubahapi.kuaci.R.id.action_done;
-import static com.rubahapi.kuaci.config.ServerPath.TABLE_REF_PERSON;
+import static com.rubahapi.kuaci.config.ServerPath.TABLE_REF_PRODUCT;
 
 public class CreateProductActivity extends AppCompatActivity {
 
@@ -49,7 +49,7 @@ public class CreateProductActivity extends AppCompatActivity {
 
     private void action_done_click() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference newRef = database.getReference(TABLE_REF_PERSON);
+        DatabaseReference newRef = database.getReference(TABLE_REF_PRODUCT);
         newRef.child(newRef.push().getKey()).setValue(new Product(nameEditText.getText().toString(),barcodeEditText.getText().toString()));
         finish();
     }

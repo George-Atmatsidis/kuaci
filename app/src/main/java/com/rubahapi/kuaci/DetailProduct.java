@@ -1,8 +1,10 @@
 package com.rubahapi.kuaci;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +18,6 @@ import com.rubahapi.kuaci.pojo.Product;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.rubahapi.kuaci.config.ServerPath.TABLE_REF_PERSON;
 import static com.rubahapi.kuaci.config.ServerPath.TABLE_REF_PRODUCT;
 
 public class DetailProduct extends AppCompatActivity {
@@ -31,6 +32,7 @@ public class DetailProduct extends AppCompatActivity {
     DatabaseReference databaseReference;
 
     Intent intent;
+    Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +45,12 @@ public class DetailProduct extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference(TABLE_REF_PRODUCT);
 
-        Toast.makeText(this, intent.getStringExtra("key"),Toast.LENGTH_SHORT).show();
-//        databaseReference.child(intent.getStringExtra("key")).setValue(product);
-
         databaseReference.child(intent.getStringExtra("key")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Product product = dataSnapshot.getValue(Product.class);
-//                TODO: Still Error Here
-//                nameEdit.setText(product.getName());
-//                barcodeEdit.setText(product.getBarcode());
+                product = dataSnapshot.getValue(Product.class);
+                nameEdit.setText(product.getName());
+                barcodeEdit.setText(product.getBarcode());
             }
 
             @Override
@@ -60,7 +58,28 @@ public class DetailProduct extends AppCompatActivity {
 
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail_profile, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_done) {
+            action_done_click();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void action_done_click() {
+        Toast.makeText(this, product.getName(), Toast.LENGTH_SHORT).show();
+//        TODO: Update Still Wrong
+        databaseReference.child(intent.getStringExtra("key")).setValue(new Product(product.getName(), product.getBarcode()));
+        finish();
     }
 }

@@ -38,26 +38,6 @@ public class SampleDatabaseActivity extends AppCompatActivity {
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
-//        String imageUri = "drawable://" + R.drawable.header_wallpaper;
-//
-//        Uri file = Uri.fromFile(new File(imageUri));
-//        StorageReference test = storageReference.child("images/"+file.getLastPathSegment());
-//
-//        UploadTask uploadTask = storageReference.putFile(file);
-//
-//        uploadTask.addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//
-//            }
-//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-//                textViewDescription.setText(downloadUrl.toString());
-//            }
-//        });
-
     }
 
     @OnClick(R.id.browse_button)

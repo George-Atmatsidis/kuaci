@@ -10,6 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.rubahapi.kuaci.DetailProduct">
+    <ImageView
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_action_camera"
+        android:id="@+id/image_take_photo"/>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

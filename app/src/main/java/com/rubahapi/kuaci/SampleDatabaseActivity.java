@@ -58,7 +58,7 @@ public class SampleDatabaseActivity extends AppCompatActivity {
         Uri result = data.getData();
         if (resultCode == Activity.RESULT_OK){
             if(requestCode == SELECT_FILE){
-                Toast.makeText(this, result.getPath(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, result.getPath(), Toast.LENGTH_SHORT).show();
                 StorageReference ref = storageReference.child("images/"+result.getLastPathSegment());
                 UploadTask uploadTask = ref.putFile(result);
 

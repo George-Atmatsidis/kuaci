@@ -30,4 +30,9 @@
             android:id="@+id/barcode_edit"
             android:hint="@string/barcode_edit_hint"/>
     </android.support.design.widget.TextInputLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Scan Barcode"
+        android:id="@+id/button_scan_barcode"/>
 </LinearLayout>

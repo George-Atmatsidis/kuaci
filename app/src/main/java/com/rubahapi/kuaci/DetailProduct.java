@@ -201,7 +201,6 @@ public class DetailProduct extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 image_store_path = downloadUrl.getLastPathSegment();
-//                Toast.makeText(DetailProduct.this, downloadUrl.getPath(), Toast.LENGTH_SHORT).show();
             }
         });
     }

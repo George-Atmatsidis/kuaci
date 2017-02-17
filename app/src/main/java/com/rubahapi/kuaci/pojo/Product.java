@@ -7,6 +7,7 @@ package com.rubahapi.kuaci.pojo;
 public class Product {
     private String name;
     private String barcode;
+    private String imagepath;
 
     public Product() {
     }
@@ -14,6 +15,20 @@ public class Product {
     public Product(String name, String barcode) {
         this.name = name;
         this.barcode = barcode;
+    }
+
+    public Product(String name, String barcode, String imagepath) {
+        this.name = name;
+        this.barcode = barcode;
+        this.imagepath = imagepath;
+    }
+
+    public String getImagepath() {
+        return imagepath;
+    }
+
+    public void setImagepath(String imagepath) {
+        this.imagepath = imagepath;
     }
 
     public String getName() {

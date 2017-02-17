@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +17,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,17 +32,12 @@ import com.google.firebase.storage.UploadTask;
 import com.rubahapi.kuaci.pojo.Product;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.rubahapi.kuaci.R.id.action_delete;
-import static com.rubahapi.kuaci.R.id.image_take_photo;
 import static com.rubahapi.kuaci.config.ServerPath.TABLE_REF_PRODUCT;
 
 public class DetailProduct extends AppCompatActivity {
@@ -65,6 +61,7 @@ public class DetailProduct extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     private int REQUEST_CAMERA = 0;
+    private String image_store_path;
 
     private void showProgressDialog(){
         if(progressDialog == null){
@@ -104,6 +101,13 @@ public class DetailProduct extends AppCompatActivity {
                 if(null != product){
                     nameEdit.setText(product.getName());
                     barcodeEdit.setText(product.getBarcode());
+                    if(product.getImagepath() != null){
+                        Glide.with(DetailProduct.this)
+                                .using(new FirebaseImageLoader())
+                                .load(storageReference.child(product.getImagepath()))
+                                .placeholder(R.drawable.ic_action_camera)
+                                .into(imageTakePhoto);
+                    }
                 }
                 hideProgressDialog();
             }
@@ -155,6 +159,7 @@ public class DetailProduct extends AppCompatActivity {
     private void action_done_click() {
         product.setName(nameEdit.getText().toString());
         product.setBarcode(barcodeEdit.getText().toString());
+        product.setImagepath(image_store_path);
         databaseReference.child(intent.getStringExtra("key")).setValue(product);
         finish();
     }
@@ -175,10 +180,6 @@ public class DetailProduct extends AppCompatActivity {
     }
 
     private void onCaptureImageResult(Intent data) {
-//        Uri result = data.getData();
-//        StorageReference ref = storageReference.child("images/"+result.getLastPathSegment());
-//        UploadTask uploadTask = ref.putFile(result);
-
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
@@ -187,10 +188,8 @@ public class DetailProduct extends AppCompatActivity {
 
         byte[] dataSent = bytes.toByteArray();
 
-        Uri result = data.getData();
-        StorageReference ref = storageReference.child("images/"+result.getLastPathSegment());
+        StorageReference ref = storageReference.child("images/"+System.currentTimeMillis()+".jpg");
         UploadTask uploadTask = ref.putBytes(dataSent);
-
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -201,6 +200,8 @@ public class DetailProduct extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                image_store_path = downloadUrl.getLastPathSegment();
+//                Toast.makeText(DetailProduct.this, downloadUrl.getPath(), Toast.LENGTH_SHORT).show();
             }
         });
     }

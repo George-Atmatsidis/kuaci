@@ -11,4 +11,6 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_kas_book">Kas Book</string>
+    <string name="description_edit_hint">Description</string>
 </resources>

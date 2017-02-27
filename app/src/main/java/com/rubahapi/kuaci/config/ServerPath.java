@@ -7,4 +7,5 @@ package com.rubahapi.kuaci.config;
 public class ServerPath {
     public static final String TABLE_REF_PERSON = "person";
     public static final String TABLE_REF_PRODUCT = "product";
+    public static final String TABLE_REF_KAS_BOOK = "kas_book";
 }

@@ -62,7 +62,7 @@ public class KasBookActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void populateViewHolder(KasBookViewHolder viewHolder, KasBook model, int position) {
+            protected void populateViewHolder(KasBookViewHolder viewHolder, KasBook model, final int position) {
                 if(null != model){
                     DecimalFormat formatter = new DecimalFormat("#,###.00");
                     SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
@@ -82,14 +82,21 @@ public class KasBookActivity extends AppCompatActivity {
                                 break;
                         }
                     }
+
+                    viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(KasBookActivity.this, DetailKasBookActivity.class);
+                            intent.putExtra("key", getRef(position).getKey());
+                            KasBookActivity.this.startActivity(intent);
+                        }
+                    });
                 }
             }
 
 
         };
-
         kasBookRecyclerView.setAdapter(adapter);
-
     }
 
     public static class KasBookViewHolder extends RecyclerView.ViewHolder {

@@ -67,9 +67,13 @@
             android:label="@string/title_activity_kas_book"
             android:parentActivityName=".DashboardActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CreateKasBookActivity"
+        <activity
+            android:name=".CreateKasBookActivity"
+            android:label="New Record"
+            android:parentActivityName=".KasBookActivity" />
+        <activity android:name=".DetailKasBookActivity"
             android:parentActivityName=".KasBookActivity"
-            android:label="New Record"></activity>
+            android:label="Detail Kas Book"></activity>
     </application>
 
 </manifest>

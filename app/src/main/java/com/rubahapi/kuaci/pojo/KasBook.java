@@ -16,9 +16,9 @@ public class KasBook {
     }
 
     public KasBook(Date dateTransaction, String description, float amount, int transactionType) {
-        DateTransaction = dateTransaction;
-        Description = description;
-        Amount = amount;
+        this.DateTransaction = dateTransaction;
+        this.Description = description;
+        this.Amount = amount;
         this.transactionType = transactionType;
     }
 
@@ -27,7 +27,7 @@ public class KasBook {
     }
 
     public void setDateTransaction(Date dateTransaction) {
-        DateTransaction = dateTransaction;
+        this.DateTransaction = dateTransaction;
     }
 
     public String getDescription() {
@@ -35,7 +35,7 @@ public class KasBook {
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.Description = description;
     }
 
     public Float getAmount() {
@@ -43,7 +43,7 @@ public class KasBook {
     }
 
     public void setAmount(Float amount) {
-        Amount = amount;
+        this.Amount = amount;
     }
 
     public int getTransactionType() {

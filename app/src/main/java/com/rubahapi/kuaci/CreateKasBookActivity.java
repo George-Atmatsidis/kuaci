@@ -1,7 +1,7 @@
 package com.rubahapi.kuaci;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rubahapi.kuaci.pojo.KasBook;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.rubahapi.kuaci.R.id.action_done;
@@ -41,7 +42,8 @@ public class CreateKasBookActivity extends AppCompatActivity {
     private void action_done_click() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference newRef = database.getReference(TABLE_REF_KAS_BOOK);
-        newRef.child(new Date().toString()).setValue(new KasBook(null, "Desc", 999, 1));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        newRef.child(newRef.push().getKey()).setValue(new KasBook(new Date(), "Desc", 999, 1));
         finish();
     }
 }

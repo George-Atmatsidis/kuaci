@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -62,14 +64,14 @@ public class KasBookActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(KasBookActivity.this, CreateKasBookActivity.class);
-                KasBookActivity.this.startActivity(intent);
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(KasBookActivity.this, CreateKasBookActivity.class);
+//                KasBookActivity.this.startActivity(intent);
+//            }
+//        });
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference(TABLE_REF_KAS_BOOK);
@@ -102,7 +104,7 @@ public class KasBookActivity extends AppCompatActivity {
 
         };
 
-        kasBookRecyclerView.setAdapter(adapter);
+//        kasBookRecyclerView.setAdapter(adapter);
     }
 
     private class KasBookViewHolder extends RecyclerView.ViewHolder {
@@ -116,5 +118,26 @@ public class KasBookActivity extends AppCompatActivity {
             view = itemView;
             descriptionTextView = (TextView) findViewById(R.id.description_textView);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.kas_book, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_done) {
+            action_done_click();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void action_done_click() {
+        Intent intent = new Intent(KasBookActivity.this, CreateKasBookActivity.class);
+        KasBookActivity.this.startActivity(intent);
     }
 }

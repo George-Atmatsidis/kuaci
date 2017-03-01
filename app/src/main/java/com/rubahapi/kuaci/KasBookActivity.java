@@ -1,6 +1,5 @@
 package com.rubahapi.kuaci;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rubahapi.kuaci.pojo.KasBook;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -29,24 +31,6 @@ public class KasBookActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference databaseReference;
-
-    ProgressDialog progressDialog;
-
-    private void showProgressDialog(){
-        if(progressDialog == null){
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Retreieve Data From Server");
-            progressDialog.setIndeterminate(true);
-            progressDialog.setCanceledOnTouchOutside(false);
-        }
-        progressDialog.show();
-    }
-
-    private void hideProgressDialog(){
-        if (progressDialog != null && progressDialog.isShowing()){
-            progressDialog.hide();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +47,7 @@ public class KasBookActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference(TABLE_REF_KAS_BOOK);
 
-//        kasBookRecyclerView = (RecyclerView) findViewById(R.id.kas_book_recycler_view);
         kasBookRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-//        showProgressDialog();
 
         final FirebaseRecyclerAdapter<KasBook, KasBookViewHolder> adapter = new FirebaseRecyclerAdapter<KasBook, KasBookViewHolder>(
                 KasBook.class,
@@ -83,9 +64,25 @@ public class KasBookActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(KasBookViewHolder viewHolder, KasBook model, int position) {
                 if(null != model){
+                    DecimalFormat formatter = new DecimalFormat("#,###.00");
+                    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+
                     viewHolder.descriptionTextView.setText(model.getDescription());
+                    viewHolder.amountTextView.setText(formatter.format(model.getAmount()));
+                    viewHolder.dateTextView.setText(dateFormatter.format(model.getDateTransaction()));
+                    if(0 != model.getTransactionType()){
+                        switch (model.getTransactionType()){
+                            case 1 :
+                                viewHolder.transactionTypeTextView.setText("D");
+                                break;
+                            case 2 :
+                                viewHolder.transactionTypeTextView.setText("K");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
-//                hideProgressDialog();
             }
 
 
@@ -98,12 +95,18 @@ public class KasBookActivity extends AppCompatActivity {
     public static class KasBookViewHolder extends RecyclerView.ViewHolder {
 
         TextView descriptionTextView;
+        TextView dateTextView;
+        TextView transactionTypeTextView;
+        TextView amountTextView;
         View view;
 
         public KasBookViewHolder(View v) {
             super(v);
             view = v;
             descriptionTextView = (TextView) v.findViewById(R.id.description_textView);
+            dateTextView = (TextView) v.findViewById(R.id.date_text_view);
+            transactionTypeTextView = (TextView) v.findViewById(R.id.transaction_type_text_view);
+            amountTextView = (TextView) v.findViewById(R.id.amount_text_view);
         }
     }
 

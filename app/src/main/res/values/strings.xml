@@ -13,4 +13,11 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_kas_book">Kas Book</string>
     <string name="description_edit_hint">Description</string>
+    <string name="date_transaction">Date Transaction</string>
+    <string name="nominal">Nominal</string>
+
+    <string-array name="transaction_type_array">
+        <item>Pemasukan</item>
+        <item>Pengeluaran</item>
+    </string-array>
 </resources>

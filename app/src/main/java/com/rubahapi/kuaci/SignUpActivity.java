@@ -1,14 +1,12 @@
 package com.rubahapi.kuaci;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,10 +19,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     private static final String TAG = "INFO";
-
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -35,9 +32,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.password_text_view)
     EditText passwordTextView;
-
-    @BindView(R.id.message_text_view)
-    TextView messageTextView;
 
     public void showProgressDialog() {
         if (mProgressDialog == null) {
@@ -58,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -67,10 +61,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
+                if(user != null){
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
+                }else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
@@ -78,32 +71,31 @@ public class LoginActivity extends AppCompatActivity {
         };
     }
 
-    @OnClick(R.id.btn_sign_up)
-    public void onClickSignUpButton(View view){
-        Intent intent = new Intent(this,SignUpActivity.class);
-        this.startActivity(intent);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
-    @OnClick(R.id.btn_login)
-    public void onClickLoginButton(View view){
-        showProgressDialog();
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+//        }
+    }
 
-        mAuth.signInWithEmailAndPassword(emailTextView.getText().toString(), passwordTextView.getText().toString())
+    @OnClick(R.id.btn_sign_up)
+    public void onClickSignUpButton(View view){
+        showProgressDialog();
+        mAuth.createUserWithEmailAndPassword(emailTextView.getText().toString(), passwordTextView.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed",
+                            Toast.makeText(SignUpActivity.this, "Authentication failed",
                                     Toast.LENGTH_SHORT).show();
                         }
-
-                        if (!task.isSuccessful()) {
-                            messageTextView.setText(task.getException().toString());
-                        }
-
                         hideProgressDialog();
                     }
                 });

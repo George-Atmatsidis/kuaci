@@ -93,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                            Toast.makeText(SignUpActivity.this, "Authentication failed",
+                            Toast.makeText(SignUpActivity.this, "Authentication failed " + task.getException() ,
                                     Toast.LENGTH_SHORT).show();
                         }
                         hideProgressDialog();

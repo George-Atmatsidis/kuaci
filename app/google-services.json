@@ -19,7 +19,7 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.rubahapi.kuaci",
-            "certificate_hash": "45F48B0450665CCEC8EBB064792571107F6F2275"
+            "certificate_hash": "45f48b0450665ccec8ebb064792571107f6f2275"
           }
         },
         {
@@ -27,7 +27,7 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.rubahapi.kuaci",
-            "certificate_hash": "A858F849C7AE893AFCE481BCACC1305F335AD8A9"
+            "certificate_hash": "a858f849c7ae893afce481bcacc1305f335ad8a9"
           }
         },
         {
